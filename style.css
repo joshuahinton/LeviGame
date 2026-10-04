@@ -18,3 +18,19 @@ canvas {
   height: 100vh;
   height: 100dvh;
 }
+
+/* The 🏠 button in the corner that goes back to the game menu */
+.home {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 12px);
+  right: calc(env(safe-area-inset-right) + 12px);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+}

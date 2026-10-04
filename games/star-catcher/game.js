@@ -1,5 +1,5 @@
 // =====================================================================
-//  LEVI'S GAME  -  Star Catcher
+//  STAR CATCHER  -  Dad's example game
 //
 //  Slide your finger to move. Catch the stars, dodge the rocks!
 //
@@ -59,7 +59,7 @@ let best = loadBest();
 
 function loadBest() {
   try {
-    return Number(localStorage.getItem("best")) || 0;
+    return Number(localStorage.getItem("starCatcherBest")) || 0;
   } catch {
     return 0;
   }
@@ -67,7 +67,7 @@ function loadBest() {
 
 function saveBest() {
   try {
-    localStorage.setItem("best", best);
+    localStorage.setItem("starCatcherBest", best);
   } catch {}
 }
 

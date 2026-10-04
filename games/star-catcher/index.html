@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Star Catcher</title>
+
+  <!-- These lines make it work like a real app on the iPad home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Levi's Game">
+  <meta name="theme-color" content="#2a1660">
+  <link rel="icon" href="../../icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../../manifest.webmanifest">
+
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <a class="home" href="../../">🏠</a>
+  <script src="game.js"></script>
+  <script>
+    // Lets the game work offline once it's been opened.
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("../../sw.js");
+    }
+  </script>
+</body>
+</html>

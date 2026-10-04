@@ -1,6 +1,6 @@
 {
-  "name": "Levi's Game",
-  "short_name": "Levi's Game",
+  "name": "Levi's Games",
+  "short_name": "Levi's Games",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

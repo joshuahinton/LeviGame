@@ -1,11 +1,14 @@
 # Levi's Game
 
-A school holiday project: a parent and their kid (Levi) are building a game together to play on an iPad.
+A school holiday project: a parent and their kid (Levi) are building games together to play on an iPad.
 
 ## How it works
 - Plain HTML + JavaScript on a `<canvas>`. **No build step, no frameworks, no npm dependencies.** Keep it that way so Levi can read and change everything.
 - Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`. Played on the iPad from the home screen (PWA: `manifest.webmanifest` + `sw.js`).
-- All game code is in `game.js`. Easy-to-change values live in the `SETTINGS` object at the top.
+- The top-level `index.html` is a menu linking to each game in `games/<name>/`. Each game is self-contained (its own `index.html` + `game.js`) and shares only `style.css`, the manifest, `sw.js` and `icons/` from the root. Keep games independent so Levi's changes can't break another game.
+- `games/levi/` is **Levi's game**. `games/star-catcher/` and `games/stick-fight/` are his parent's games. Easy-to-change values live in the `SETTINGS` object at the top of each `game.js`.
+- Each game page has a 🏠 link back to the menu: the installed app has no browser back button.
+- Games share one origin, so give `localStorage` keys a per-game prefix (e.g. `starCatcherBest`).
 
 ## When making changes
 - Write code a kid can follow: clear names, short functions, friendly comments explaining *what* each part does.
