@@ -3,25 +3,78 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>Levi's Game</title>
+  <title>Levi's Games</title>
 
   <!-- These lines make it work like a real app on the iPad home screen -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Levi's Game">
+  <meta name="apple-mobile-web-app-title" content="Levi's Games">
   <meta name="theme-color" content="#2a1660">
   <link rel="icon" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
 
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* The game menu */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding: 24px;
+      box-sizing: border-box;
+      background: linear-gradient(#2a1660, #5b2a86);
+      font-family: system-ui, sans-serif;
+      color: white;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 7vw, 64px);
+      color: #ffd23c;
+      text-align: center;
+    }
+    .games {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+    .game {
+      width: 240px;
+      padding: 28px 16px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .game:active {
+      transform: scale(0.96);
+    }
+    .game span {
+      display: block;
+      font-size: 80px;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="game"></canvas>
-  <script src="game.js"></script>
+  <h1>Levi's Games</h1>
+
+  <!-- Add a new game: copy one of these and change the link, emoji and name -->
+  <div class="games">
+    <a class="game" href="games/levi/"><span>😎</span>Levi's Game</a>
+    <a class="game" href="games/star-catcher/"><span>⭐</span>Star Catcher</a>
+    <a class="game" href="games/stick-fight/"><span>🥊</span>Dad's Stick Fight</a>
+  </div>
+
   <script>
-    // Lets the game work offline once it's been opened.
+    // Lets the games work offline once they've been opened.
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js");
     }
