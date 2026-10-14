@@ -1,12 +1,12 @@
-# Levi's Game
+# Hinton-Bazil Games
 
-A school holiday project: a parent and their kid (Levi) are building games together to play on an iPad.
+Hinton-Bazil Games: a school holiday project where a parent and their kid (Levi) are building games together to play on an iPad.
 
 ## How it works
 - Plain HTML + JavaScript on a `<canvas>`. **No build step, no frameworks, no npm dependencies.** Keep it that way so Levi can read and change everything.
 - Deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`. Played on the iPad from the home screen (PWA: `manifest.webmanifest` + `sw.js`).
 - The top-level `index.html` is a menu linking to each game in `games/<name>/`. Each game is self-contained (its own `index.html` + `game.js`) and shares only `style.css`, the manifest, `sw.js` and `icons/` from the root. Keep games independent so Levi's changes can't break another game.
-- `games/levi/` is **Levi's game**. `games/star-catcher/` and `games/stick-fight/` are his parent's games. `games/paperpaint/` is a Paper.io 2-style game made for Levi (levels and continent outlines in `maps.js`). Easy-to-change values live in the `SETTINGS` object at the top of each `game.js`.
+- `games/levi/` is **Levi's game**. `games/star-catcher/` and `games/stick-fight/` are his parent's games. `games/paperpaint/` is a Paper.io 2-style game made for Levi (levels and continent outlines in `maps.js`). `games/amaliadraw/` is a step-by-step drawing lesson app (draw on the iPad, then on paper; lessons in `lessons.js`). It uses HTML screens plus canvases rather than one full-screen canvas. Easy-to-change values live in the `SETTINGS` object at the top of each `game.js`.
 - Each game page has a 🏠 link back to the menu: the installed app has no browser back button.
 - Games share one origin, so give `localStorage` keys a per-game prefix (e.g. `starCatcherBest`).
 

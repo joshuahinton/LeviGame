@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>AmaliaDraw</title>
+
+  <!-- These lines make it work like a real app on the iPad home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Hinton-Bazil Games">
+  <meta name="theme-color" content="#2a1660">
+  <link rel="icon" href="../../icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../../manifest.webmanifest">
+
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    body {
+      background: #fdf3e3;
+      font-family: system-ui, sans-serif;
+      color: #3a2e2a;
+    }
+
+    /* Each screen fills the whole iPad. Only one is shown at a time. */
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    .hidden {
+      display: none !important;
+    }
+    .scroll {
+      overflow-y: auto;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    h1 {
+      margin: 24px 90px 8px 24px;
+      font-size: clamp(34px, 6vw, 52px);
+      color: #e8467c;
+    }
+    .subtitle {
+      margin: 0 24px 16px;
+      font-size: 20px;
+    }
+
+    /* Top and bottom bars on the drawing screens */
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 84px 12px 16px;
+      min-height: 64px;
+    }
+    .bar.bottom {
+      justify-content: center;
+      padding-right: 16px;
+    }
+    .bar .words {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-title {
+      font-size: 15px;
+      font-weight: bold;
+      opacity: 0.6;
+    }
+    .step-text {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: bold;
+    }
+
+    button,
+    .button {
+      font: inherit;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 18px;
+      padding: 14px 22px;
+      color: white;
+      background: #3d8bff;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+    button:active,
+    .button:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
+    button.green { background: #2ebd6b; }
+    button.pink { background: #e8467c; }
+    button.orange { background: #ff8a1e; }
+    button.grey { background: #9a8f88; }
+    button.small { font-size: 16px; padding: 10px 16px; }
+
+    /* The square of paper you draw on */
+    .stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+    .stage canvas {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      touch-action: none;
+    }
+
+    /* Lesson cards */
+    .menu-buttons {
+      display: flex;
+      gap: 12px;
+      margin: 0 24px 20px;
+      flex-wrap: wrap;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 16px;
+      padding: 0 24px 40px;
+    }
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 18px 10px;
+      text-align: center;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+    }
+    .card:active {
+      transform: scale(0.97);
+    }
+    .card .big {
+      font-size: 60px;
+      line-height: 1.1;
+    }
+    .card .name {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+    .card .help {
+      font-size: 14px;
+      opacity: 0.6;
+    }
+    .card .stars {
+      font-size: 22px;
+      margin-top: 6px;
+    }
+    .card.locked {
+      opacity: 0.45;
+    }
+
+    /* Journal pictures */
+    .card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 14px;
+      background: #eee;
+    }
+    .empty {
+      margin: 24px;
+      font-size: 20px;
+    }
+
+    /* Colour buttons on the free draw page */
+    .swatch {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 50%;
+      border: 4px solid white;
+    }
+    .swatch.chosen {
+      border-color: #3a2e2a;
+    }
+
+    /* Pop-up messages */
+    .popup-back {
+      position: fixed;
+      inset: 0;
+      background: rgba(40, 20, 30, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .popup {
+      background: #fffaf1;
+      border-radius: 28px;
+      padding: 28px;
+      max-width: 560px;
+      width: 100%;
+      max-height: 90%;
+      overflow-y: auto;
+      text-align: center;
+    }
+    .popup h2 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      color: #e8467c;
+    }
+    .popup p {
+      font-size: 20px;
+    }
+    .popup img {
+      max-width: 100%;
+      max-height: 45vh;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+    .popup .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: 22%;
+      transform: translateX(-50%);
+      background: #2ebd6b;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      padding: 14px 28px;
+      border-radius: 20px;
+      pointer-events: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    .toast.oops {
+      background: #ff8a1e;
+    }
+  </style>
+</head>
+<body>
+  <!-- Screen 1: pick a lesson -->
+  <section id="lessonsScreen" class="screen scroll">
+    <h1>AmaliaDraw ✏️</h1>
+    <p class="subtitle">Pick a drawing. Draw it on the iPad, then on paper!</p>
+    <div class="menu-buttons">
+      <button id="journalButton" class="orange">📒 My Journal</button>
+      <button id="freeButton" class="pink">🎨 Free Draw</button>
+    </div>
+    <div id="lessonGrid" class="grid"></div>
+  </section>
+
+  <!-- Screen 2: Part 1, draw on the iPad -->
+  <section id="drawScreen" class="screen hidden">
+    <div class="bar">
+      <button id="drawBack" class="grey small">◀</button>
+      <div class="words">
+        <div id="drawTitle" class="step-title"></div>
+        <div id="drawText" class="step-text"></div>
+      </div>
+    </div>
+    <div class="stage"><canvas id="drawCanvas"></canvas></div>
+    <div class="bar bottom">
+      <button id="undoButton" class="grey">↶ Undo</button>
+      <button id="checkButton" class="green">✓ Done</button>
+    </div>
+  </section>
+
+  <!-- Screen 3: Part 2, draw on paper -->
+  <section id="paperScreen" class="screen hidden">
+    <div class="bar">
+      <button id="paperBack" class="grey small">◀</button>
+      <div class="words">
+        <div id="paperTitle" class="step-title"></div>
+        <div id="paperText" class="step-text"></div>
+      </div>
+    </div>
+    <div class="stage"><canvas id="paperCanvas"></canvas></div>
+    <div class="bar bottom">
+      <button id="paperPrev" class="grey">◀ Back</button>
+      <button id="paperNext" class="green">Next ▶</button>
+    </div>
+    <!-- Opens the iPad camera to take a photo of your paper drawing -->
+    <input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden">
+  </section>
+
+  <!-- Screen 4: the journal of everything you've drawn -->
+  <section id="journalScreen" class="screen scroll hidden">
+    <h1>📒 My Journal</h1>
+    <div class="menu-buttons">
+      <button id="journalBack" class="grey">◀ Lessons</button>
+    </div>
+    <div id="journalGrid" class="grid"></div>
+  </section>
+
+  <!-- Screen 5: free drawing -->
+  <section id="freeScreen" class="screen hidden">
+    <div class="bar">
+      <button id="freeBack" class="grey small">◀</button>
+      <div id="swatches" class="words" style="display: flex; gap: 8px; flex-wrap: wrap"></div>
+    </div>
+    <div class="stage"><canvas id="freeCanvas"></canvas></div>
+    <div class="bar bottom">
+      <button id="freeUndo" class="grey">↶ Undo</button>
+      <button id="freeSize" class="orange">✏️ Thin</button>
+      <button id="freeClear" class="pink">🗑 Clear</button>
+      <button id="freeSave" class="green">💾 Save</button>
+    </div>
+  </section>
+
+  <a class="home" href="../../">🏠</a>
+  <script src="lessons.js"></script>
+  <script src="game.js"></script>
+  <script>
+    // Lets the game work offline once it's been opened.
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("../../sw.js");
+    }
+  </script>
+</body>
+</html>
