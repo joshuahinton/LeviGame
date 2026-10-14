@@ -19,6 +19,7 @@ const SETTINGS = {
   playerColor: "#ff3d7f",
 
   speed: 7,            // squares per second
+  crossOwnLine: true,  // true = you can run over your own line safely. false = it knocks you out (like the real game)
   zoom: 22,            // how many squares fit across the screen (bigger = see more)
 
   botNames: ["Zippy", "Mango", "Pixel", "Noodle", "Rex", "Blip", "Taco", "Ziggy", "Momo", "Pogo"],
@@ -418,6 +419,8 @@ function visit(p, i) {
   if (lineOwner === p.id) {
     // The last few squares of your line are safe, so sharp turns don't knock you out
     if (p.trail.lastIndexOf(i) >= p.trail.length - SAFE_TAIL) return;
+    // You can cross your own line without being knocked out (see SETTINGS)
+    if (!p.isBot && SETTINGS.crossOwnLine) return;
     knockOut(p, null, "You ran into your own line!");
     return;
   }
