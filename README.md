@@ -6,6 +6,7 @@ Opening the app shows a menu with each game:
 
 - **Levi's Game** (`games/levi/`): Levi's own game. It starts as a template: drag to move 😎 and collect the 🪙.
 - **Star Catcher** (`games/star-catcher/`): Dad's example. Slide your finger to catch the ⭐ and dodge the 🪨.
+- **PaperPaint.io** (`games/paperpaint/`): like Paper.io 2. Slide your finger to steer, leave your land to draw a line, and come back to paint everything inside it. If someone touches your line while you're out, you're out! Each continent on the world map is a level: paint enough of it to win and unlock the next. The levels are in `maps.js`.
 - **Dad's Stick Fight** (`games/stick-fight/`): punch the other stick figure off the platforms. Play against the computer, or 2 players on one iPad (Red uses the buttons on the left, Blue on the right). First to 5 rounds wins.
 
 Every game has a 🏠 button in the corner to get back to the menu.
@@ -53,6 +54,7 @@ Then open http://localhost:8000. Click/drag the mouse or use the arrow keys.
 | `games/levi/` | **Levi's game!** |
 | `games/star-catcher/` | Dad's example game |
 | `games/stick-fight/` | Dad's Stick Fight |
+| `games/paperpaint/` | PaperPaint.io (`maps.js` has the levels and continent shapes) |
 | `style.css` | Shared by every game: fills the screen, stops the iPad scrolling or zooming, styles the 🏠 button |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Make it all work like an app on the home screen, including offline |
 | `tools/make-icons.js` | Draws the app icons (`node tools/make-icons.js`) |
