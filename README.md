@@ -1,4 +1,4 @@
-# Levi's Games 🎮
+# Hinton-Bazil Games 🎮
 
 A school holiday project by Levi and Dad: games you can play on the iPad.
 

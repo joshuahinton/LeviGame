@@ -1,6 +1,6 @@
-# Levi's Game
+# Hinton-Bazil Games
 
-A school holiday project: a parent and their kid (Levi) are building games together to play on an iPad.
+Hinton-Bazil Games: a school holiday project where a parent and their kid (Levi) are building games together to play on an iPad.
 
 ## How it works
 - Plain HTML + JavaScript on a `<canvas>`. **No build step, no frameworks, no npm dependencies.** Keep it that way so Levi can read and change everything.
