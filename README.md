@@ -8,6 +8,7 @@ Opening the app shows a menu with each game:
 - **Star Catcher** (`games/star-catcher/`): Dad's example. Slide your finger to catch the ⭐ and dodge the 🪨.
 - **PaperPaint.io** (`games/paperpaint/`): like Paper.io 2. Slide your finger to steer, leave your land to draw a line, and come back to paint everything inside it. If someone touches your line while you're out, you're out! Each continent on the world map is a level: paint enough of it to win and unlock the next. The levels are in `maps.js`.
 - **AmaliaDraw** (`games/amaliadraw/`): learn to draw step by step. Part 1: draw over the dots on the iPad (less help as you go). Part 2: draw it on paper and take a photo. Everything goes in the Journal. Lessons are in `lessons.js`.
+- **Bellablox** (`games/bellablox/`): Bella's game, inspired by her favourite Roblox games. Run and jump around a lobby and go through portals: 🐾 Pet Town (hatch eggs, look after pets, watch them grow) and 👗 Fashion Show (dress up for a theme, walk the runway, win coins). Clothes are in `avatar.js`, pets in `pets.js`, the show in `fashion.js`.
 - **Dad's Stick Fight** (`games/stick-fight/`): punch the other stick figure off the platforms. Play against the computer, or 2 players on one iPad (Red uses the buttons on the left, Blue on the right). First to 5 rounds wins.
 
 Every game has a 🏠 button in the corner to get back to the menu.
@@ -55,6 +56,7 @@ Then open http://localhost:8000. Click/drag the mouse or use the arrow keys.
 | `games/levi/` | **Levi's game!** |
 | `games/star-catcher/` | Dad's example game |
 | `games/stick-fight/` | Dad's Stick Fight |
+| `games/bellablox/` | Bellablox (`avatar.js` clothes, `pets.js` pets, `fashion.js` fashion show) |
 | `games/amaliadraw/` | AmaliaDraw (`lessons.js` has the drawings) |
 | `games/paperpaint/` | PaperPaint.io (`maps.js` has the levels and continent shapes) |
 | `style.css` | Shared by every game: fills the screen, stops the iPad scrolling or zooming, styles the 🏠 button |
