@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Amalia's Hotel</title>
+
+  <!-- These lines make it work like a real app on the iPad home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Hinton-Bazil Games">
+  <meta name="theme-color" content="#2a1660">
+  <link rel="icon" href="../../icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../../manifest.webmanifest">
+
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      color: #3b2350;
+      background: #fde7f0;
+    }
+    .hidden {
+      display: none !important;
+    }
+    button {
+      font: inherit;
+      font-weight: bold;
+      font-size: 20px;
+      border: none;
+      border-radius: 18px;
+      padding: 12px 20px;
+      color: white;
+      background: #3d8bff;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+    button:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
+    button.green { background: #2ebd6b; }
+    button.orange { background: #ff8a1e; }
+    button.grey { background: #9a8fa8; }
+    button.blue { background: #3d8bff; }
+    button.red { background: #e8463c; }
+
+    /* The map of days */
+    #mapScreen {
+      position: fixed;
+      inset: 0;
+      overflow-y: auto;
+      touch-action: pan-y;
+      background: linear-gradient(#ffd6e8, #fff1dc);
+      padding: calc(env(safe-area-inset-top) + 16px) 24px 40px;
+    }
+    #mapScreen h1 {
+      margin: 0 80px 6px 0;
+      font-size: clamp(34px, 6vw, 56px);
+      color: #e8467c;
+    }
+    .top-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .pill {
+      background: white;
+      border-radius: 16px;
+      padding: 10px 16px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    #manager {
+      font-size: 54px;
+    }
+    .help {
+      font-size: 18px;
+      margin: 10px 0 0;
+    }
+    .hotel-section {
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: 24px;
+      padding: 12px 16px 18px;
+      margin-top: 16px;
+    }
+    .hotel-section h2 {
+      margin: 4px 0 12px;
+    }
+    .day-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .day {
+      position: relative;
+      width: 140px;
+      height: 110px;
+      border-radius: 26px;
+      background: white;
+      color: #3b2350;
+    }
+    .day .num {
+      font-size: 26px;
+    }
+    .day .dstars {
+      font-size: 18px;
+      margin-top: 6px;
+    }
+    .day .new {
+      position: absolute;
+      top: -10px;
+      right: -8px;
+      background: #e8467c;
+      color: white;
+      font-size: 13px;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+    .day.locked {
+      opacity: 0.5;
+    }
+    .day.next {
+      background: #ffd23c;
+      animation: pulse 0.9s infinite alternate;
+    }
+    @keyframes pulse {
+      to { transform: scale(1.07); }
+    }
+
+    /* Pop-ups */
+    .popup-back {
+      position: fixed;
+      inset: 0;
+      background: rgba(60, 30, 70, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .popup {
+      background: #fffafd;
+      border-radius: 28px;
+      padding: 24px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 92%;
+      overflow-y: auto;
+      touch-action: pan-y;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    .popup.wide {
+      max-width: 880px;
+    }
+    .popup h2 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      color: #e8467c;
+    }
+    .popup h3 {
+      margin: 18px 0 6px;
+      text-align: left;
+    }
+    .popup p {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .popup .small {
+      font-size: 16px;
+      opacity: 0.8;
+    }
+    .popup .big {
+      font-size: 70px;
+    }
+    .popup .lesson {
+      background: #fff3c4;
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 20px;
+      text-align: left;
+    }
+    .popup .speech {
+      background: #eef6ff;
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .popup .faces {
+      font-size: 44px;
+      line-height: 1.3;
+      word-break: break-all;
+    }
+    .popup .total {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .popup .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .stars {
+      font-size: 56px;
+    }
+
+    /* Ask buttons and Bolt's picture cards */
+    .asks,
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .ask,
+    .pick {
+      background: white;
+      color: #3b2350;
+      border: 4px solid #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 130px;
+    }
+    .ask span,
+    .pick span {
+      font-size: 44px;
+    }
+    .ask.used {
+      opacity: 0.35;
+    }
+    .pick.chosen {
+      border-color: #2ebd6b;
+      background: #eafff1;
+    }
+    .bolt-say {
+      background: #eef6ff;
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 20px;
+    }
+    .step {
+      text-align: left;
+      font-weight: bold;
+    }
+
+    /* Shop cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .card {
+      background: white;
+      color: #3b2350;
+      border: 4px solid transparent;
+      padding: 10px;
+      font-weight: normal;
+    }
+    .card .big-icon {
+      font-size: 44px;
+    }
+    .card .name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .card .sub {
+      font-size: 14px;
+    }
+    .card.owned {
+      opacity: 0.6;
+    }
+    .card.chosen {
+      border-color: #2ebd6b;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: 14%;
+      transform: translateX(-50%);
+      background: #3b2350;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 18px;
+      pointer-events: none;
+      text-align: center;
+      max-width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="mapScreen">
+    <h1><span id="manager">👩‍💼</span> Amalia's Hotel</h1>
+    <div class="top-row">
+      <div id="coins" class="pill">🪙 0</div>
+      <div id="kindness" class="pill" title="Happy guests">💖 0</div>
+      <div id="badges" class="pill" title="Times you checked Bolt's work">🔍 0</div>
+      <button id="shopButton" class="orange">🛒 Shop</button>
+    </div>
+    <p class="help">Make your guests happy! Tap the glowing day to open the hotel.</p>
+    <div id="days"></div>
+  </div>
+
+  <a class="home" href="../../">🏠</a>
+
+  <script src="hotel.js"></script>
+  <script src="game.js"></script>
+  <script>
+    // Lets the game work offline once it's been opened.
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("../../sw.js");
+    }
+  </script>
+</body>
+</html>
