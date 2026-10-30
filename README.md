@@ -9,6 +9,8 @@ Opening the app shows a menu with each game:
 - **PaperPaint.io** (`games/paperpaint/`): like Paper.io 2. Slide your finger to steer, leave your land to draw a line, and come back to paint everything inside it. If someone touches your line while you're out, you're out! Each continent on the world map is a level: paint enough of it to win and unlock the next. The levels are in `maps.js`.
 - **AmaliaDraw** (`games/amaliadraw/`): learn to draw step by step. Part 1: draw over the dots on the iPad (less help as you go). Part 2: draw it on paper and take a photo. Everything goes in the Journal. Lessons are in `lessons.js`.
 - **Bellablox** (`games/bellablox/`): Bella's game, inspired by her favourite Roblox games. Run and jump around a lobby and go through portals: 🐾 Pet Town (hatch eggs, look after pets, watch them grow) and 👗 Fashion Show (dress up for a theme, walk the runway, win coins). Clothes are in `avatar.js`, pets in `pets.js`, the show in `fashion.js`.
+- **Block Fortress** (`games/blockfortress/`): Levi's tower defence. Build walls to make monsters walk the long way and towers to blast them, across 15 levels in 3 worlds. Help the lost chick 🐣 home, and decide whether Bolt the robot's tips are right 👍 or wrong 👎. Towers, monsters and levels are in `levels.js`.
+- **Amalia's Hotel** (`games/amaliahotel/`): Amalia's hotel game. Check guests in, bring them what they need, ask worried guests what's wrong, sort out noisy neighbours fairly, and give Bolt the robot clear instructions (then check Bolt's work!). 12 days across 3 hotels. Guests, days and the shop are in `hotel.js`.
 - **Dad's Stick Fight** (`games/stick-fight/`): punch the other stick figure off the platforms. Play against the computer, or 2 players on one iPad (Red uses the buttons on the left, Blue on the right). First to 5 rounds wins.
 
 Every game has a 🏠 button in the corner to get back to the menu.
@@ -56,6 +58,8 @@ Then open http://localhost:8000. Click/drag the mouse or use the arrow keys.
 | `games/levi/` | **Levi's game!** |
 | `games/star-catcher/` | Dad's example game |
 | `games/stick-fight/` | Dad's Stick Fight |
+| `games/blockfortress/` | Block Fortress (`levels.js` towers, monsters, levels, Bolt's tips) |
+| `games/amaliahotel/` | Amalia's Hotel (`hotel.js` guests, supplies, days, shop) |
 | `games/bellablox/` | Bellablox (`avatar.js` clothes, `pets.js` pets, `fashion.js` fashion show) |
 | `games/amaliadraw/` | AmaliaDraw (`lessons.js` has the drawings) |
 | `games/paperpaint/` | PaperPaint.io (`maps.js` has the levels and continent shapes) |
