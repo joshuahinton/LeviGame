@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>AmaliaDraw</title>
+  <title>Draw Along</title>
 
-  <!-- These lines make it work like a real app on the iPad home screen -->
+  <!-- These lines make it work like a real app on the tablet home screen (tablet or Android) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -23,7 +23,7 @@
       color: #3a2e2a;
     }
 
-    /* Each screen fills the whole iPad. Only one is shown at a time. */
+    /* Each screen fills the whole tablet. Only one is shown at a time. */
     .screen {
       position: fixed;
       inset: 0;
@@ -249,8 +249,8 @@
 <body>
   <!-- Screen 1: pick a lesson -->
   <section id="lessonsScreen" class="screen scroll">
-    <h1>AmaliaDraw ✏️</h1>
-    <p class="subtitle">Pick a drawing. Draw it on the iPad, then on paper!</p>
+    <h1>Draw Along ✏️</h1>
+    <p class="subtitle">Pick a drawing. Draw it on the tablet, then on paper!</p>
     <div class="menu-buttons">
       <button id="journalButton" class="orange">📒 My Journal</button>
       <button id="freeButton" class="pink">🎨 Free Draw</button>
@@ -258,7 +258,7 @@
     <div id="lessonGrid" class="grid"></div>
   </section>
 
-  <!-- Screen 2: Part 1, draw on the iPad -->
+  <!-- Screen 2: Part 1, draw on the tablet -->
   <section id="drawScreen" class="screen hidden">
     <div class="bar">
       <button id="drawBack" class="grey small">◀</button>
@@ -288,7 +288,7 @@
       <button id="paperPrev" class="grey">◀ Back</button>
       <button id="paperNext" class="green">Next ▶</button>
     </div>
-    <!-- Opens the iPad camera to take a photo of your paper drawing -->
+    <!-- Opens the tablet camera to take a photo of your paper drawing -->
     <input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden">
   </section>
 
@@ -317,6 +317,7 @@
   </section>
 
   <a class="home" href="../../">🏠</a>
+  <script src="../../compat.js"></script>
   <script src="lessons.js"></script>
   <script src="game.js"></script>
   <script>

@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>Amalia's Hotel</title>
+  <title>Happy Hotel</title>
 
-  <!-- These lines make it work like a real app on the iPad home screen -->
+  <!-- These lines make it work like a real app on the tablet home screen (tablet or Android) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -293,13 +293,41 @@
       text-align: center;
       max-width: 80%;
     }
+    /* Asks you to turn the tablet sideways when playing upright */
+    .turn-hint {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 20, 50, 0.85);
+      color: white;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+      padding: 30px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .turn-hint .phone {
+      font-size: 90px;
+      animation: turn 1.6s infinite ease-in-out;
+    }
+    @keyframes turn {
+      50% { transform: rotate(-90deg); }
+    }
+    @media (orientation: portrait) {
+      body.playing:not(.rotate-ok) .turn-hint {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
   <canvas id="game"></canvas>
 
   <div id="mapScreen">
-    <h1><span id="manager">👩‍💼</span> Amalia's Hotel</h1>
+    <h1><span id="manager">🧑‍💼</span> Happy Hotel</h1>
     <div class="top-row">
       <div id="coins" class="pill">🪙 0</div>
       <div id="kindness" class="pill" title="Happy guests">💖 0</div>
@@ -310,8 +338,15 @@
     <div id="days"></div>
   </div>
 
+  <div class="turn-hint">
+    <div class="phone">📱</div>
+    <div>Turn your tablet sideways for a bigger game!</div>
+    <button class="green" onclick="document.body.classList.add('rotate-ok')">Play anyway</button>
+  </div>
+
   <a class="home" href="../../">🏠</a>
 
+  <script src="../../compat.js"></script>
   <script src="hotel.js"></script>
   <script src="game.js"></script>
   <script>

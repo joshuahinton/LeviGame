@@ -25,7 +25,7 @@ const MONSTERS = {
   chick:    { name: "Lost Chick", emoji: "🐣", hp: 12,  speed: 0.8,  reward: 0,  gap: 1,   friendly: true, traits: ["friendly"] },
 };
 
-const TRAIT_ICONS = { fast: "⚡ fast", tough: "🛡️ tough", flies: "🪽 flies", boss: "👑 boss", friendly: "💛 lost, not a monster!" };
+const TRAIT_ICONS = { fast: "⚡ fast", tough: "🛡️ tough", flies: "🦇 flies", boss: "👑 boss", friendly: "💛 lost, not a monster!" };
 
 // The maps. # = rock, S = where monsters come from, C = your castle
 const MAPS = [

@@ -1,8 +1,8 @@
 // Service worker: keeps a copy of the game so it works without internet.
 // It always tries the internet first, so new changes show up straight away,
-// and only uses the saved copy when the iPad is offline.
+// and only uses the saved copy when the tablet is offline.
 
-const CACHE = "levi-game";
+const CACHE = "hinton-bazil-games";
 
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));

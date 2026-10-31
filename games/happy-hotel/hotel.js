@@ -1,5 +1,5 @@
 // =====================================================================
-//  AMALIA'S HOTEL  -  guests, supplies, days and the shop
+//  HAPPY HOTEL  -  guests, supplies, days and the shop
 //
 //  👇 Change these to make your own hotel! 👇
 // =====================================================================
@@ -90,12 +90,13 @@ const SHOP = [
   { id: "fish", name: "Fish tank", emoji: "🐠", price: 90, info: "Guests love watching fish while they wait." },
 ];
 
-// Outfits for Amalia, the hotel manager
+// Outfits for you, the hotel manager
 const OUTFITS = [
-  { emoji: "👩‍💼", name: "Manager", price: 0 },
-  { emoji: "👩‍🍳", name: "Chef", price: 40 },
+  { emoji: "🧑‍💼", name: "Manager", price: 0 },
+  { emoji: "🧑‍🍳", name: "Chef", price: 40 },
   { emoji: "👸", name: "Princess", price: 80 },
-  { emoji: "👩‍🚀", name: "Astronaut", price: 100 },
-  { emoji: "🦸‍♀️", name: "Superhero", price: 140 },
-  { emoji: "🧚‍♀️", name: "Fairy", price: 180 },
+  { emoji: "🤴", name: "Prince", price: 80 },
+  { emoji: "🧑‍🚀", name: "Astronaut", price: 100 },
+  { emoji: "🦸", name: "Superhero", price: 140 },
+  { emoji: "🧚", name: "Fairy", price: 180 },
 ];

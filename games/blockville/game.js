@@ -1,5 +1,5 @@
 // =====================================================================
-//  BELLABLOX
+//  BLOCKVILLE
 //
 //  Run and jump around the lobby, then go through a portal:
 //   🐾 Pet Town:     hatch eggs, look after your pets, watch them grow
@@ -12,8 +12,8 @@
 // =====================================================================
 
 const SETTINGS = {
-  title: "Bellablox",
-  playerName: "Bella",
+  title: "Blockville",
+  playerName: "You",
   walkSpeed: 6.5,
   jumpPower: 17,
   gravity: 0.8,
@@ -38,6 +38,15 @@ const $ = (id) => document.getElementById(id);
 //  1. SAVING
 // ---------------------------------------------------------------------
 
+// Bring across a save from when this game had a different name
+function findOldSave(ending) {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.toLowerCase().endsWith(ending)) return localStorage.getItem(key);
+  }
+  return null;
+}
+
 function loadSave() {
   const fresh = {
     coins: SETTINGS.startCoins,
@@ -49,7 +58,7 @@ function loadSave() {
     shows: 0,       // fashion shows you've done
   };
   try {
-    const saved = JSON.parse(localStorage.getItem("bellabloxSave"));
+    const saved = JSON.parse(localStorage.getItem("blockvilleSave") || findOldSave("bloxsave"));
     if (saved) return { ...fresh, ...saved, outfit: { ...fresh.outfit, ...saved.outfit } };
   } catch {}
   return fresh;
@@ -59,7 +68,7 @@ const save = loadSave();
 
 function saveGame() {
   try {
-    localStorage.setItem("bellabloxSave", JSON.stringify(save));
+    localStorage.setItem("blockvilleSave", JSON.stringify(save));
   } catch {}
 }
 
@@ -80,7 +89,7 @@ function spendCoins(amount) {
 
 // ---------------------------------------------------------------------
 //  2. SCREEN, CONTROLS AND THE PLAYER
-//  The world is always 720 tall. It's scaled to fit the iPad.
+//  The world is always 720 tall. It's scaled to fit the tablet.
 // ---------------------------------------------------------------------
 
 const canvas = $("game");
@@ -288,7 +297,7 @@ scenes.lobby = {
     },
     makePortal(2000 + 600, "Fashion Show", "👗", ["#e0c3ff", "#9b51e0"], () => startFashionShow()),
     makePortal(2000 + 1000 - 50, "Coming soon", "🔒", ["#d0d0d0", "#8a8a8a"], () =>
-      showPopup("🔒 Coming soon!", "<p>What game should go here next, Bella? Tell Dad and we'll build it!</p>", [["OK", "pink"]])
+      showPopup("🔒 Coming soon!", "<p>What game should go here next? Dream it up and we'll build it!</p>", [["OK", "pink"]])
     ),
   ],
   update() {
@@ -567,7 +576,7 @@ function updateHud() {
 // ---------------------------------------------------------------------
 //  7. THE GAME LOOP
 //  The game moves in steps of 1/60th of a second, so it runs at the
-//  same speed on every iPad.
+//  same speed on every tablet.
 // ---------------------------------------------------------------------
 
 let frame = 0;

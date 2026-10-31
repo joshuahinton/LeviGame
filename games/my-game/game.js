@@ -1,5 +1,5 @@
 // =====================================================================
-//  LEVI'S GAME
+//  MY GAME
 //
 //  This is a starter template. Drag your finger to move around
 //  and collect the coins. Then turn it into YOUR game!
@@ -8,7 +8,7 @@
 // =====================================================================
 
 const SETTINGS = {
-  title: "LEVI'S GAME",
+  title: "MY GAME",
 
   player: "😎",     // you! try any emoji
   coin: "🪙",       // the thing you collect

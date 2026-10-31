@@ -1,5 +1,5 @@
 // =====================================================================
-//  BELLABLOX  -  The Fashion Show!
+//  BLOCKVILLE  -  The Fashion Show!
 //
 //  1. You get a theme (like "Royal Ball").
 //  2. Get dressed before the timer runs out.
@@ -19,7 +19,7 @@ const THEMES = [
   { name: "Sports Day", emoji: "⚽", tag: "sporty" },
   { name: "Spooky Night", emoji: "🎃", tag: "spooky" },
   { name: "Super Cute", emoji: "🎀", tag: "cute" },
-  { name: "Disco Party", emoji: "🪩", tag: "party" },
+  { name: "Disco Party", emoji: "🕺", tag: "party" },
   { name: "Rainbow", emoji: "🌈", tag: "rainbow" },
 ];
 

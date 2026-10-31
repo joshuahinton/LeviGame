@@ -1,5 +1,5 @@
 // =====================================================================
-//  BELLABLOX  -  your character and all the clothes
+//  BLOCKVILLE  -  your character and all the clothes
 //
 //  Every piece of clothing has:
 //    name:  what it's called

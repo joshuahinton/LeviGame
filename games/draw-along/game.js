@@ -1,8 +1,8 @@
 // =====================================================================
-//  AMALIADRAW
+//  DRAW ALONG
 //
 //  Learn to draw, one step at a time!
-//   Part 1: draw over the dots on the iPad.
+//   Part 1: draw over the dots on the tablet.
 //   Part 2: draw the same picture on paper, then take a photo of it.
 //  Everything you draw goes in your Journal.
 //
@@ -23,7 +23,7 @@ const SETTINGS = {
 //    1. Saving your progress and journal
 //    2. Drawing pads (the white squares you draw on)
 //    3. The lessons screen
-//    4. Part 1: drawing on the iPad
+//    4. Part 1: drawing on the tablet
 //    5. Part 2: drawing on paper
 //    6. The journal
 //    7. Free draw
@@ -49,21 +49,38 @@ function save(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
     return true;
   } catch {
-    return false; // the iPad's storage for this game is full
+    return false; // the tablet's storage for this game is full
   }
 }
 
 // stars: best stars for each lesson.  paper: lessons you've done on paper
-const progress = load("amaliaDrawProgress", { stars: {}, paper: {} });
-const journal = load("amaliaDrawJournal", []);
+// Bring across a save from when this game had a different name
+function findOldSave(ending) {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.toLowerCase().endsWith(ending)) return localStorage.getItem(key);
+  }
+  return null;
+}
+
+function loadWithOldName(key, ending, fallback) {
+  if (localStorage.getItem(key) === null) {
+    const old = findOldSave(ending);
+    if (old) localStorage.setItem(key, old);
+  }
+  return load(key, fallback);
+}
+
+const progress = loadWithOldName("drawAlongProgress", "drawprogress", { stars: {}, paper: {} });
+const journal = loadWithOldName("drawAlongJournal", "drawjournal", []);
 
 function saveProgress() {
-  save("amaliaDrawProgress", progress);
+  save("drawAlongProgress", progress);
 }
 
 function addToJournal(entry) {
   journal.unshift({ ...entry, date: new Date().toLocaleDateString() });
-  if (!save("amaliaDrawJournal", journal)) {
+  if (!save("drawAlongJournal", journal)) {
     journal.shift();
     showPopup("📒 Journal is full", "<p>Delete some old drawings from your Journal to make room.</p>", [["OK", "grey"]]);
     return false;
@@ -397,7 +414,7 @@ function snapshot(paint) {
 
 // ---------------------------------------------------------------------
 //  5. PART 2: DRAWING ON PAPER
-//  The iPad shows each step, with the new lines in orange.
+//  The tablet shows each step, with the new lines in orange.
 //  You copy them onto paper, then take a photo.
 // ---------------------------------------------------------------------
 
@@ -488,7 +505,7 @@ function paperFinished(photo) {
 //  6. THE JOURNAL
 // ---------------------------------------------------------------------
 
-const KIND_NAMES = { ipad: "✏️ iPad", paper: "📄 Paper", free: "🎨 Free draw" };
+const KIND_NAMES = { ipad: "✏️ Tablet", paper: "📄 Paper", free: "🎨 Free draw" };
 
 function showJournal() {
   const grid = $("journalGrid");
@@ -508,7 +525,7 @@ function showJournal() {
         ["Close", "grey"],
         ["🗑 Delete", "pink", () => {
           journal.splice(n, 1);
-          save("amaliaDrawJournal", journal);
+          save("drawAlongJournal", journal);
           showJournal();
         }],
       ])

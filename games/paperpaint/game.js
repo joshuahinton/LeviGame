@@ -15,7 +15,7 @@
 
 const SETTINGS = {
   title: "PaperPaint.io",
-  playerName: "LEVI",
+  playerName: "YOU",
   playerColor: "#ff3d7f",
 
   speed: 7,            // squares per second
@@ -1061,7 +1061,7 @@ function tapWorldMap(x, y) {
 // ---------------------------------------------------------------------
 //  8. THE GAME LOOP
 //  The game moves in steps of 1/60th of a second, so it runs at the
-//  same speed on every iPad (some iPad screens refresh 120 times a second).
+//  same speed on every tablet (some tablet screens refresh 120 times a second).
 // ---------------------------------------------------------------------
 
 let frame = 0;

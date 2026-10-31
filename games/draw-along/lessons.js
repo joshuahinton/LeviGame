@@ -1,5 +1,5 @@
 // =====================================================================
-//  AMALIADRAW  -  the lessons
+//  DRAW ALONG  -  the lessons
 //
 //  Every drawing is made of steps. Each step has some lines to draw.
 //  The drawing area goes from 0 to 100 across and 0 to 100 down

@@ -4,7 +4,7 @@ body {
   height: 100%;
   overflow: hidden;
   background: #1a0d40;
-  /* Stop the iPad from scrolling, zooming or selecting text while playing */
+  /* Stop the tablet from scrolling, zooming or selecting text while playing */
   touch-action: none;
   -webkit-user-select: none;
   user-select: none;

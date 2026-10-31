@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Hinton-Bazil Games</title>
 
-  <!-- These lines make it work like a real app on the iPad home screen -->
+  <!-- These lines make it work like a real app on the tablet home screen (tablet or Android) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,22 +17,29 @@
 
   <link rel="stylesheet" href="style.css">
   <style>
-    /* The game menu */
+    /* The game menu. It scrolls if there are too many games to fit,
+       and the buttons shrink a little on shorter screens (like Android tablets). */
     body {
+      overflow-y: auto;
+      touch-action: pan-y;
+      background: linear-gradient(#2a1660, #5b2a86);
+      background-attachment: fixed;
+      font-family: system-ui, sans-serif;
+      color: white;
+    }
+    .page {
+      min-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 32px;
-      padding: 24px;
+      gap: clamp(14px, 3vh, 32px);
+      padding: calc(env(safe-area-inset-top) + 20px) 20px 28px;
       box-sizing: border-box;
-      background: linear-gradient(#2a1660, #5b2a86);
-      font-family: system-ui, sans-serif;
-      color: white;
     }
     h1 {
-      margin: 0;
-      font-size: clamp(36px, 7vw, 64px);
+      margin: 0 70px;
+      font-size: clamp(32px, min(7vw, 8vh), 64px);
       color: #ffd23c;
       text-align: center;
     }
@@ -40,43 +47,48 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 24px;
+      gap: clamp(12px, 2.5vh, 24px);
+      max-width: 1120px;
     }
     .game {
-      width: 240px;
-      padding: 28px 16px;
-      border-radius: 28px;
+      width: clamp(150px, 26vw, 240px);
+      padding: clamp(10px, 2.6vh, 28px) 12px;
+      border-radius: 26px;
       background: rgba(255, 255, 255, 0.12);
       color: white;
       text-decoration: none;
       text-align: center;
-      font-size: 26px;
+      font-size: clamp(16px, min(3vh, 2.8vw), 26px);
       font-weight: bold;
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
     }
     .game:active {
       transform: scale(0.96);
     }
     .game span {
       display: block;
-      font-size: 80px;
-      margin-bottom: 12px;
+      font-size: clamp(42px, 9vh, 80px);
+      margin-bottom: 6px;
     }
   </style>
 </head>
 <body>
+  <main class="page">
   <h1>Hinton-Bazil Games</h1>
 
   <!-- Add a new game: copy one of these and change the link, emoji and name -->
   <div class="games">
-    <a class="game" href="games/levi/"><span>😎</span>Levi's Game</a>
+    <a class="game" href="games/my-game/"><span>😎</span>My Game</a>
     <a class="game" href="games/star-catcher/"><span>⭐</span>Star Catcher</a>
-    <a class="game" href="games/stick-fight/"><span>🥊</span>Dad's Stick Fight</a>
+    <a class="game" href="games/stick-fight/"><span>🥊</span>Stick Fight</a>
     <a class="game" href="games/paperpaint/"><span>🎨</span>PaperPaint.io</a>
-    <a class="game" href="games/amaliadraw/"><span>✏️</span>AmaliaDraw</a>
-    <a class="game" href="games/bellablox/"><span>🦄</span>Bellablox</a>
-    <a class="game" href="games/blockfortress/"><span>🏰</span>Block Fortress</a>
-    <a class="game" href="games/amaliahotel/"><span>🏨</span>Amalia's Hotel</a>
+    <a class="game" href="games/draw-along/"><span>✏️</span>Draw Along</a>
+    <a class="game" href="games/blockville/"><span>🦄</span>Blockville</a>
+    <a class="game" href="games/block-fortress/"><span>🏰</span>Block Fortress</a>
+    <a class="game" href="games/happy-hotel/"><span>🏨</span>Happy Hotel</a>
   </div>
+  </main>
 
   <script>
     // Lets the games work offline once they've been opened.

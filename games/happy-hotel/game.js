@@ -1,5 +1,5 @@
 // =====================================================================
-//  AMALIA'S HOTEL
+//  HAPPY HOTEL
 //
 //  Run the best hotel in the world!
 //   - Tap a guest, then tap a free room ✨ to check them in.
@@ -15,7 +15,7 @@
 // =====================================================================
 
 const SETTINGS = {
-  managerName: "Amalia",
+  hotelName: "Happy Hotel",
   waitPatience: 30,     // seconds a guest will wait at the desk
   needPatience: 35,     // seconds a guest will wait for something they asked for
   roomPrice: 8,         // coins a guest pays for their room
@@ -44,10 +44,19 @@ const $ = (id) => document.getElementById(id);
 //  1. SAVING
 // ---------------------------------------------------------------------
 
+// Bring across a save from when this game had a different name
+function findOldSave(ending) {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.toLowerCase().endsWith(ending)) return localStorage.getItem(key);
+  }
+  return null;
+}
+
 function loadSave() {
   const fresh = { coins: 0, stars: [], owned: {}, outfit: 0, ownedOutfits: { 0: true }, badges: 0, kindness: 0, reached: 1 };
   try {
-    const saved = JSON.parse(localStorage.getItem("amaliaHotelSave"));
+    const saved = JSON.parse(localStorage.getItem("happyHotelSave") || findOldSave("hotelsave"));
     if (saved) return { ...fresh, ...saved };
   } catch {}
   return fresh;
@@ -57,7 +66,7 @@ const save = loadSave();
 
 function saveGame() {
   try {
-    localStorage.setItem("amaliaHotelSave", JSON.stringify(save));
+    localStorage.setItem("happyHotelSave", JSON.stringify(save));
   } catch {}
 }
 
@@ -72,7 +81,7 @@ function hasSupply(id) {
 
 // ---------------------------------------------------------------------
 //  2. SCREEN AND DRAWING HELPERS
-//  The hotel is always 1600 x 900, scaled to fit the iPad.
+//  The hotel is always 1600 x 900, scaled to fit the tablet.
 // ---------------------------------------------------------------------
 
 const canvas = $("game");
@@ -688,13 +697,13 @@ function drawTopBar(dark) {
 }
 
 function drawLobby() {
-  // The front desk, with Amalia behind it
+  // The front desk, with you (the manager) behind it
   box(40, 92, 370, 200, "rgba(255,255,255,0.4)", 24);
   emoji(OUTFITS[save.outfit].emoji, 225, 150, 86);
   box(60, 190, 330, 80, "#a8744f", 16);
   box(60, 190, 330, 18, "#c48b5f", 10);
   emoji("🛎️", 340, 182, 36);
-  label(`${SETTINGS.managerName}'s Hotel`, 225, 240, 22, "white");
+  label(SETTINGS.hotelName, 225, 240, 22, "white");
   if (save.owned.plant) emoji("🪴", 70, 150, 50);
   if (save.owned.fish) emoji("🐠", 380, 130, 44);
   emoji("🚪", 70, 820, 70);
@@ -953,6 +962,7 @@ let currentScreen = "map";
 
 function showScreen(name) {
   currentScreen = name;
+  document.body.classList.toggle("playing", name === "play"); // for the "turn sideways" hint
   closePopups();
   $("mapScreen").classList.toggle("hidden", name !== "map");
   if (name === "map") drawMap();
@@ -992,7 +1002,7 @@ function openShop() {
     const sub = owned ? "✅ Got it!" : blocked ? "🔒 Buy the room before first" : `🪙 ${item.price}`;
     html += card(item.emoji, item.name, `${item.info}<br><b>${sub}</b>`, owned ? "owned" : "", `item:${item.id}`);
   }
-  html += `</div><h3>${SETTINGS.managerName}'s outfit</h3><div class="grid">`;
+  html += `</div><h3>Your outfit</h3><div class="grid">`;
   OUTFITS.forEach((o, i) => {
     const owned = save.ownedOutfits[i];
     html += card(o.emoji, o.name, save.outfit === i ? "<b>✅ Wearing</b>" : owned ? "Tap to wear" : `<b>🪙 ${o.price}</b>`, save.outfit === i ? "chosen" : "", `outfit:${i}`);
@@ -1061,7 +1071,7 @@ function toast(t) {
 
 // ---------------------------------------------------------------------
 //  11. THE GAME LOOP
-//  Steps of 1/60th of a second, so it's the same speed on every iPad.
+//  Steps of 1/60th of a second, so it's the same speed on every tablet.
 //  The hotel pauses while a pop-up is showing.
 // ---------------------------------------------------------------------
 

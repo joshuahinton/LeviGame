@@ -72,7 +72,7 @@ function saveGame() {
 
 // ---------------------------------------------------------------------
 //  2. SCREEN AND DRAWING HELPERS
-//  The game world is always 1600 x 900, scaled to fit the iPad.
+//  The game world is always 1600 x 900, scaled to fit the tablet.
 // ---------------------------------------------------------------------
 
 const canvas = $("game");
@@ -948,6 +948,7 @@ let currentScreen = "map";
 
 function showScreen(name) {
   currentScreen = name;
+  document.body.classList.toggle("playing", name === "play"); // for the "turn sideways" hint
   closePopups();
   $("mapScreen").classList.toggle("hidden", name !== "map");
   if (name === "map") drawMap();
@@ -1078,7 +1079,7 @@ function toast(t) {
 
 // ---------------------------------------------------------------------
 //  11. THE GAME LOOP
-//  Steps of 1/60th of a second, so it's the same speed on every iPad.
+//  Steps of 1/60th of a second, so it's the same speed on every tablet.
 // ---------------------------------------------------------------------
 
 function update() {

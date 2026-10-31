@@ -1,10 +1,10 @@
 // =====================================================================
-//  STAR CATCHER  -  Dad's example game
+//  STAR CATCHER  -  an example game
 //
 //  Slide your finger to move. Catch the stars, dodge the rocks!
 //
 //  👇 CHANGE THESE to make the game your own! 👇
-//  (Save, push, then refresh the game on the iPad to see your changes.)
+//  (Save, push, then refresh the game on the tablet to see your changes.)
 // =====================================================================
 
 const SETTINGS = {

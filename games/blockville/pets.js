@@ -1,5 +1,5 @@
 // =====================================================================
-//  BELLABLOX  -  Pets!
+//  BLOCKVILLE  -  Pets!
 //
 //  Buy an egg, hatch it, and look after your pet.
 //  When your pet wants something, a bubble pops up. Take it to the
@@ -45,7 +45,7 @@ const NEEDS = [
   { id: "thirsty", icon: "💧", verb: "Give water", station: "water" },
   { id: "play", icon: "⚽", verb: "Play", station: "ball" },
   { id: "sleepy", icon: "💤", verb: "Nap", station: "bed" },
-  { id: "dirty", icon: "🫧", verb: "Bath", station: "bath" },
+  { id: "dirty", icon: "🧼", verb: "Bath", station: "bath" },
 ];
 
 const PET_REWARD = 8; // coins for each thing you do for your pet

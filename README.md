@@ -1,32 +1,40 @@
 # Hinton-Bazil Games 🎮
 
-A school holiday project by Levi and Dad: games you can play on the iPad.
+Games made at home to play on a tablet: iPad or Android.
 
 Opening the app shows a menu with each game:
 
-- **Levi's Game** (`games/levi/`): Levi's own game. It starts as a template: drag to move 😎 and collect the 🪙.
-- **Star Catcher** (`games/star-catcher/`): Dad's example. Slide your finger to catch the ⭐ and dodge the 🪨.
-- **PaperPaint.io** (`games/paperpaint/`): like Paper.io 2. Slide your finger to steer, leave your land to draw a line, and come back to paint everything inside it. If someone touches your line while you're out, you're out! Each continent on the world map is a level: paint enough of it to win and unlock the next. The levels are in `maps.js`.
-- **AmaliaDraw** (`games/amaliadraw/`): learn to draw step by step. Part 1: draw over the dots on the iPad (less help as you go). Part 2: draw it on paper and take a photo. Everything goes in the Journal. Lessons are in `lessons.js`.
-- **Bellablox** (`games/bellablox/`): Bella's game, inspired by her favourite Roblox games. Run and jump around a lobby and go through portals: 🐾 Pet Town (hatch eggs, look after pets, watch them grow) and 👗 Fashion Show (dress up for a theme, walk the runway, win coins). Clothes are in `avatar.js`, pets in `pets.js`, the show in `fashion.js`.
-- **Block Fortress** (`games/blockfortress/`): Levi's tower defence. Build walls to make monsters walk the long way and towers to blast them, across 15 levels in 3 worlds. Help the lost chick 🐣 home, and decide whether Bolt the robot's tips are right 👍 or wrong 👎. Towers, monsters and levels are in `levels.js`.
-- **Amalia's Hotel** (`games/amaliahotel/`): Amalia's hotel game. Check guests in, bring them what they need, ask worried guests what's wrong, sort out noisy neighbours fairly, and give Bolt the robot clear instructions (then check Bolt's work!). 12 days across 3 hotels. Guests, days and the shop are in `hotel.js`.
-- **Dad's Stick Fight** (`games/stick-fight/`): punch the other stick figure off the platforms. Play against the computer, or 2 players on one iPad (Red uses the buttons on the left, Blue on the right). First to 5 rounds wins.
+- **My Game** (`games/my-game/`): a starter template for building your own game. Drag to move 😎 and collect the 🪙.
+- **Star Catcher** (`games/star-catcher/`): an example game. Slide your finger to catch the ⭐ and dodge the 🪨.
+- **Stick Fight** (`games/stick-fight/`): punch the other stick figure off the platforms. Play against the computer, or 2 players on one tablet (Red uses the buttons on the left, Blue on the right). First to 5 rounds wins.
+- **PaperPaint.io** (`games/paperpaint/`): like Paper.io 2. Slide your finger to steer, leave your land to draw a line, and come back to paint everything inside it. If someone touches your line while you're out, you're out! Each continent on the world map is a level. The levels are in `maps.js`.
+- **Draw Along** (`games/draw-along/`): learn to draw step by step. Part 1: draw over the dots on the tablet (less help as you go). Part 2: draw it on paper and take a photo. Everything goes in the Journal. Lessons are in `lessons.js`.
+- **Blockville** (`games/blockville/`): run and jump around a blocky lobby and go through portals: 🐾 Pet Town (hatch eggs, look after pets, watch them grow) and 👗 Fashion Show (dress up for a theme, walk the runway, win coins). Clothes are in `avatar.js`, pets in `pets.js`, the show in `fashion.js`.
+- **Block Fortress** (`games/block-fortress/`): tower defence. Build walls to make monsters walk the long way and towers to blast them, across 15 levels in 3 worlds. Help the lost chick 🐣 home, and decide whether Bolt the robot's tips are right 👍 or wrong 👎. Towers, monsters and levels are in `levels.js`.
+- **Happy Hotel** (`games/happy-hotel/`): run a hotel. Check guests in, bring them what they need, ask worried guests what's wrong, sort out noisy neighbours fairly, and give Bolt the robot clear instructions (then check Bolt's work!). 12 days across 3 hotels. Guests, days and the shop are in `hotel.js`.
 
-Every game has a 🏠 button in the corner to get back to the menu.
+Every game has a 🏠 button in the corner to get back to the menu. Block Fortress and Happy Hotel are best with the tablet sideways.
 
-## Play it on the iPad
+## Play it on a tablet
 
-1. Open **Safari** on the iPad and go to **https://joshuahinton.github.io/LeviGame/**
+The games live at **https://joshuahinton.github.io/LeviGame/**
+
+**iPad**
+1. Open **Safari** and go to the link above.
 2. Tap the **Share** button (the square with the arrow pointing up).
 3. Tap **Add to Home Screen**, then **Add**.
-4. Now there's a ⭐ icon on the home screen. Tap it to open the game menu full-screen, even without internet.
 
-Each time we change the game and push to `main`, the iPad gets the new version the next time it opens the game with internet.
+**Android tablet**
+1. Open **Chrome** and go to the link above.
+2. Tap the **⋮** menu (top right).
+3. Tap **Install app** (or **Add to Home screen**), then **Install**.
+
+Now there's a ⭐ icon on the home screen. Tap it to open the games full-screen, even without internet.
+Each time we push to `main`, the tablet gets the new version the next time it opens the games with internet.
 
 ## Change a game
 
-Each game has its own `game.js` (for example `games/levi/game.js`). The `SETTINGS` at the top are the easy bits to change.
+Each game has its own `game.js` (for example `games/my-game/game.js`). The `SETTINGS` at the top are the easy bits to change.
 In Star Catcher they are:
 
 - `player`: swap 🐱 for any emoji (🚀 🦖 🐸 🤖)
@@ -44,32 +52,44 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000. Click/drag the mouse or use the arrow keys.
 
+## Check every game on iPad and Android sizes
+
+```sh
+npm install playwright      # one time only
+node tools/check-games.js
+```
+
+This opens every game on pretend iPads and Android tablets (upright and sideways, plus an older tablet browser), taps around, and checks nothing breaks. Screenshots go in `check-results/`.
+
 ## Add another game
 
-1. Copy a game folder, e.g. `games/levi/` to `games/my-new-game/`.
+1. Copy a game folder, e.g. `games/my-game/` to `games/my-new-game/`.
 2. In the new `index.html`, change the `<title>`.
 3. In the top-level `index.html`, copy one of the `<a class="game">` buttons and point it at `games/my-new-game/`.
+4. Add the new game to `tools/check-games.js` so it gets checked too.
 
 ## What's in here
 
 | File | What it does |
 |------|--------------|
 | `index.html` | The game menu |
-| `games/levi/` | **Levi's game!** |
-| `games/star-catcher/` | Dad's example game |
-| `games/stick-fight/` | Dad's Stick Fight |
-| `games/blockfortress/` | Block Fortress (`levels.js` towers, monsters, levels, Bolt's tips) |
-| `games/amaliahotel/` | Amalia's Hotel (`hotel.js` guests, supplies, days, shop) |
-| `games/bellablox/` | Bellablox (`avatar.js` clothes, `pets.js` pets, `fashion.js` fashion show) |
-| `games/amaliadraw/` | AmaliaDraw (`lessons.js` has the drawings) |
+| `games/my-game/` | A starter game to build your own |
+| `games/star-catcher/` | Star Catcher |
+| `games/stick-fight/` | Stick Fight |
 | `games/paperpaint/` | PaperPaint.io (`maps.js` has the levels and continent shapes) |
-| `style.css` | Shared by every game: fills the screen, stops the iPad scrolling or zooming, styles the 🏠 button |
+| `games/draw-along/` | Draw Along (`lessons.js` has the drawings) |
+| `games/blockville/` | Blockville (`avatar.js` clothes, `pets.js` pets, `fashion.js` fashion show) |
+| `games/block-fortress/` | Block Fortress (`levels.js` towers, monsters, levels, Bolt's tips) |
+| `games/happy-hotel/` | Happy Hotel (`hotel.js` guests, supplies, days, shop) |
+| `style.css` | Shared by every game: fills the screen, stops the tablet scrolling or zooming, styles the 🏠 button |
+| `compat.js` | Shared by every game: helps older iPads and Android tablets draw everything |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Make it all work like an app on the home screen, including offline |
+| `tools/check-games.js` | Checks every game on iPad and Android tablet sizes |
 | `tools/make-icons.js` | Draws the app icons (`node tools/make-icons.js`) |
 | `.github/workflows/deploy.yml` | Puts the games online every time we push to `main` |
 
-## One-time setup (Dad)
+## One-time setup
 
 In the GitHub repo go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
-The game then appears at the link above after the next push to `main`.
+The games then appear at the link above after the next push to `main`.
 GitHub Pages on a *private* repo needs a paid GitHub plan, so either make the repo public or use a plan that includes Pages.

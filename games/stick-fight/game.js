@@ -1,5 +1,5 @@
 // =====================================================================
-//  DAD'S STICK FIGHT
+//  STICK FIGHT
 //
 //  Punch the other stick figure until they're out of energy,
 //  or knock them off the edge! First to win 5 rounds wins.
@@ -13,7 +13,7 @@
 // =====================================================================
 
 const SETTINGS = {
-  title: "DAD'S STICK FIGHT",
+  title: "STICK FIGHT",
 
   player1: { name: "RED", color: "#ff4d4d" },
   player2: { name: "BLUE", color: "#4da6ff" },
